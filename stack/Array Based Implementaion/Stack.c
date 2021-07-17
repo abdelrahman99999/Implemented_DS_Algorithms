@@ -75,19 +75,20 @@ void dispaly(StackEntry e) {
 }
 
 int main(){
+	//test
 	Stack s1;
 	initStack(&s1);
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
-	push(5, &s1);
-	push(10, &s1);
-	push(15, &s1);
-	push(20, &s1);
-	push(25, &s1);
+	if(!stackFull(&s1))push(5, &s1);
+	if (!stackFull(&s1))push(10, &s1);
+	if (!stackFull(&s1))push(15, &s1);
+	if (!stackFull(&s1))push(20, &s1);
+	if (!stackFull(&s1))push(25, &s1);
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
-	int x=3;
-	pop(&x, &s1);
+	int x = 3;
+	if (!stackEmpty(&s1))pop(&x, &s1);
 	printf("x value after changing: %d\n", x);
 	printf("the size of stack: %d\n", stackSize(&s1));
 	stackTop(&x, &s1);
