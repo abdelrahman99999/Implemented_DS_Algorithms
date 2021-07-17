@@ -54,21 +54,21 @@ int main(){
 	//test
 	Stack<int>s1;
 	cout << "the size of stack: " << s1.stackSize() << "\n";
-	s1.push(5);
-	s1.push(10);
-	s1.push(15);
-	s1.push(20);
-	s1.push(25);
+	if(!s1.stackFull())s1.push(5);
+	if (!s1.stackFull())s1.push(10);
+	if (!s1.stackFull())s1.push(15);
+	if (!s1.stackFull())s1.push(20);
+	if (!s1.stackFull())s1.push(25);
 	cout << "the size of stack: " << s1.stackSize() << "\n";
 	int x = 3;
-	s1.pop(&x);
+	if (!s1.stackEmpty())s1.pop(&x);
 	cout << "x value after changing is: " << x << "\n";
-	x=s1.stackTop();
+	x = s1.stackTop();
 	cout << "x value after changing is: " << x << "\n";
 	cout << "the size of stack: " << s1.stackSize() << "\n";
 	cout << "stack elements: ";
 	s1.TraverseStack(&display);
 	cout << "\n";
-
+	
 	return 0;
 }
