@@ -18,21 +18,25 @@ public:
 		size = 0;
 	}
 	bool stackEmpty() {
-		return top==NULL;
+		return top == NULL;
 	}
 
 	bool stackFull() {
 		return 0;
 	}
 
-	void push(int element) {
+	int push(int element) {
 		//stacknode<T> *pn = (stacknode<T>*)malloc(sizeof(stacknode<T>));
 		stacknode<T> *pn = new stacknode<T>;
-		pn->entry = element;
-		pn->next = top;
-		top = pn;
-		size++;
-
+		if (!pn)return 0;
+		else {
+			pn->entry = element;
+			pn->next = top;
+			top = pn;
+			size++;
+			return 1;
+		}
+		//using if else to handle error may happen whaen using new or malloc
 	}
 	void pop(T *pe) {
 		*pe = top->entry;
@@ -43,7 +47,7 @@ public:
 	}
 
 	void TraverseStack(void(*pf)(T)) {
-		
+
 		for (stacknode<T> *pn = top; pn; pn = pn->next)(*pf)(pn->entry);
 	}
 
@@ -62,15 +66,20 @@ void display(T e) {
 }
 
 int main() {
-	
+
 	//test
 	Stack<int>s1;
 	cout << "the size of stack: " << s1.stackSize() << "\n";
-	if(!s1.stackFull())s1.push(5);
-	if (!s1.stackFull())s1.push(10);
-	if (!s1.stackFull())s1.push(15);
-	if (!s1.stackFull())s1.push(20);
-	if (!s1.stackFull())s1.push(25);
+	if (!s1.stackFull())
+		if(!s1.push(5))cout<<"errr happen\n";       
+	if (!s1.stackFull())
+		if (!s1.push(10))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(15))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(20))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(25))cout << "errr happen\n";
 	cout << "the size of stack: " << s1.stackSize() << "\n";
 	int x = 3;
 	if (!s1.stackEmpty())s1.pop(&x);
