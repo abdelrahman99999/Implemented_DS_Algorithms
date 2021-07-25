@@ -4,7 +4,7 @@
 //set your stack elements type
 #define StackEntry int
 
-typedef enum bool{false,true}boolean;
+typedef enum bool{ false,true }boolean;
 
 typedef struct stacknode {
 	StackEntry entry;
@@ -18,19 +18,23 @@ typedef struct stack {
 
 
 void initStack(Stack *ps) {             //initialize stack
-	ps->top = NULL; 
-	ps->size=0;
+	ps->top = NULL;
+	ps->size = 0;
 }
 
-void push(StackEntry e, Stack *ps) {
+int push(StackEntry e, Stack *ps) {
 	//pre_conditions: stack is initalized , no condition of not full as in linked implementaion the stack can not full
 	StackNode *pn;
 	pn = (StackNode*)malloc(sizeof(StackNode)); //or we can do in one line ( StackNode *pn=(StackNode*)malloc(sizeof(StackNode)); )
-	pn->entry= e;
-	pn->next=ps->top;
-	ps->top = pn;
-
-	ps->size++;
+	if (!pn)return 0;
+	else {
+		pn->entry = e;
+		pn->next = ps->top;
+		ps->top = pn;
+		ps->size++;
+		return 1;
+	}
+	//if and else used to handle error may happen in malloc
 }
 
 boolean stackFull(Stack *ps) {
@@ -50,12 +54,12 @@ void pop(StackEntry *pe, Stack *ps) {
 }
 
 boolean stackEmpty(Stack *ps) {
-	return ps->top==NULL;        //OR return !ps->size;
+	return ps->top == NULL;        //OR return !ps->size;
 
-	//two reason to use call by ref
-	//(1)to be like interface of array based implementaion
-	//(2)array based -- here we don't change any values inside stack
-	//(2)array based -- using call by ref as it's efficient (no waste for memory or time of copying)
+								   //two reason to use call by ref
+								   //(1)to be like interface of array based implementaion
+								   //(2)array based -- here we don't change any values inside stack
+								   //(2)array based -- using call by ref as it's efficient (no waste for memory or time of copying)
 }
 
 void stackTop(StackEntry *pe, Stack *ps) {
@@ -70,7 +74,7 @@ void stackTop(StackEntry *pe, Stack *ps) {
 int stackSize(Stack *ps) {
 	//pre_conditions: stack is initiaized
 	return ps->size;          //θ(1)
-	//using call by ref as it's efficient (no waste for memory or time of copying)
+							  //using call by ref as it's efficient (no waste for memory or time of copying)
 
 	/*
 	another way if there is not size field but it's complexity is θ(N)
@@ -98,7 +102,7 @@ void clearStack(Stack *ps) {
 void traverseStack(Stack *ps, void(*pf)(StackEntry)) {
 	//pre_conditions: stack is initalized
 	//passed function with one parameter and must return void
-	for (StackNode *pn = ps->top; pn;pn=pn->next) {
+	for (StackNode *pn = ps->top; pn; pn = pn->next) {
 		(*pf)(pn->entry);
 	}
 }
@@ -115,11 +119,16 @@ int main() {
 	initStack(&s1);
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
-	if(!stackFull(&s1))push(5, &s1);
-	if (!stackFull(&s1))push(10, &s1);
-	if (!stackFull(&s1))push(15, &s1);
-	if (!stackFull(&s1))push(20, &s1);
-	if (!stackFull(&s1))push(25, &s1);
+	if (!stackFull(&s1))
+		if(!push(5, &s1))printf("error happen \n");//due to malloc
+	if (!stackFull(&s1))
+		if (!push(10, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(15, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(20, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(25, &s1))printf("error happen \n");
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
 	int x = 3;
