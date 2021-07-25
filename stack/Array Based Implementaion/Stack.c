@@ -15,11 +15,14 @@ void initStack(Stack *ps) {             //initialize stack
 	ps->top = 0; //*ps.top=0
 }
 
-void push(StackEntry e, Stack *ps) {
+int push(StackEntry e, Stack *ps) {
 	//pre_conditions: stack is initalized and is not full
 	ps->entry[ps->top] = e;
 	ps->top++;
+	return 1;
 	//or we can do at one line 	( ps->entry[ps->top++]=e; )
+	//i change return type of function from void to int to make same interface between array based and linked based
+	//int return type ,,,used to handle errors in linked based
 }
 
 boolean stackFull(Stack *ps) {
@@ -80,11 +83,16 @@ int main(){
 	initStack(&s1);
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
-	if(!stackFull(&s1))push(5, &s1);
-	if (!stackFull(&s1))push(10, &s1);
-	if (!stackFull(&s1))push(15, &s1);
-	if (!stackFull(&s1))push(20, &s1);
-	if (!stackFull(&s1))push(25, &s1);
+	if (!stackFull(&s1))
+		if(!push(5, &s1))printf("error happen \n");//due to malloc
+	if (!stackFull(&s1))
+		if (!push(10, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(15, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(20, &s1))printf("error happen \n");
+	if (!stackFull(&s1))
+		if (!push(25, &s1))printf("error happen \n");
 	printf("is stack empty? %d\n", stackEmpty(&s1));
 	printf("the size of stack: %d\n", stackSize(&s1));
 	int x = 3;
