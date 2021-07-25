@@ -73,20 +73,13 @@ void queueFirst(QueueEntry *pe, Queue *pq) {
 }
 
 void clearQueue(Queue *pq) {
-	for (queueNode *pn = pq->front; pn; pn = pn->next) {
-		pq->front = pn->next;
-		free(pn);
-	}
-	pq->rear = NULL;
-	/*
 	while(pq->front){
 		pq->rear=pq->front->next;
 		free(pq->front);
 		pq->front=pq->rear;
 	}
 	pq->size = 0;
-	*/
-	pq->size = 0;
+		
 }
 
 //to access every element and make a function to deal with it,this function can change queue values as i pass ( &pq->entry[pos] )
