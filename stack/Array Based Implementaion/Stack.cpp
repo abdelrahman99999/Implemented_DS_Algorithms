@@ -25,9 +25,12 @@ public:
 		top--;
 		*pe = item[top];
 	}
-	void push(int element) {
+	int push(int element) {
 		item[top] = element;
 		top++;
+		return 1;
+		//i change return type of function from void to int to make same interface between array based and linked based
+		//int return type ,,,used to handle errors in linked based
 	}
 	
 	void TraverseStack ( void (*pf)(T) ) {
@@ -54,11 +57,16 @@ int main(){
 	//test
 	Stack<int>s1;
 	cout << "the size of stack: " << s1.stackSize() << "\n";
-	if(!s1.stackFull())s1.push(5);
-	if (!s1.stackFull())s1.push(10);
-	if (!s1.stackFull())s1.push(15);
-	if (!s1.stackFull())s1.push(20);
-	if (!s1.stackFull())s1.push(25);
+	if (!s1.stackFull())
+		if(!s1.push(5))cout<<"errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(10))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(15))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(20))cout << "errr happen\n";
+	if (!s1.stackFull())
+		if (!s1.push(25))cout << "errr happen\n";
 	cout << "the size of stack: " << s1.stackSize() << "\n";
 	int x = 3;
 	if (!s1.stackEmpty())s1.pop(&x);
@@ -69,6 +77,7 @@ int main(){
 	cout << "stack elements: ";
 	s1.TraverseStack(&display);
 	cout << "\n";
-	
+
+
 	return 0;
 }
