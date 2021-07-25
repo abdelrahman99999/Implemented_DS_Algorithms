@@ -65,7 +65,7 @@ public:
 		size = 0;
 	}
 
-	//to access every element and make a function to deal with it,this function can change queue values as i pass ( &pq->entry[pos] )
+	//to access every element and make a function to deal with it,this function can change queue values as i pass ( &entry[pos] )
 	void traverseQueue(void(*pf)(T *e)) {
 		int pos = front;
 		for (int s = 0; s < size; s++) {
@@ -73,7 +73,7 @@ public:
 			pos = (pos + 1) % MaxQueue;
 		}
 	}
-	//to access every element and make a function to deal with it,this function can not change queue values as i pass ( pq->entry[pos] )
+	//to access every element and make a function to deal with it,this function can not change queue values as i pass (entry[pos] )
 	void traverseQueue2(void(*pf)(T e)) {
 		int pos = front;
 		for (int s = 0; s < size; s++) {
